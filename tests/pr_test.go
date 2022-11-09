@@ -8,8 +8,7 @@ import (
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
 )
 
-// Use existing resource group
-const resourceGroup = "geretain-test-resources"
+const resourceGroup = "geretain-test-key-protect-key"
 const defaultExampleTerraformDir = "examples/default"
 
 func TestRunDefaultExample(t *testing.T) {
@@ -18,7 +17,7 @@ func TestRunDefaultExample(t *testing.T) {
 	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
 		Testing:       t,
 		TerraformDir:  defaultExampleTerraformDir,
-		Prefix:        "mod-template",
+		Prefix:        "kp-key",
 		ResourceGroup: resourceGroup,
 	})
 
@@ -28,15 +27,14 @@ func TestRunDefaultExample(t *testing.T) {
 }
 
 func TestRunUpgradeExample(t *testing.T) {
+	// TODO: Remove this line after the first merge to main branch is complete to enable upgrade test
+	t.Skip("Skipping upgrade test until initial code is in main branch")
 	t.Parallel()
-
-	// TODO: Remove this line after the first merge to primary branch is complete to enable upgrade test
-	t.Skip("Skipping upgrade test until initial code is in primary branch")
 
 	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
 		Testing:       t,
 		TerraformDir:  defaultExampleTerraformDir,
-		Prefix:        "mod-template-upg",
+		Prefix:        "kp-key-upg",
 		ResourceGroup: resourceGroup,
 	})
 
