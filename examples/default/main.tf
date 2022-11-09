@@ -10,11 +10,26 @@ module "resource_group" {
 }
 
 ##############################################################################
-# VPC
+# Key Protect module
 ##############################################################################
 
-resource "ibm_is_vpc" "vpc" {
-  name           = "${var.prefix}-vpc"
-  resource_group = module.resource_group.resource_group_id
-  tags           = var.resource_tags
+module "key_protect_module" {
+  source            = "git::https://github.com/terraform-ibm-modules/terraform-ibm-key-protect.git?ref=v1.0.0"
+  key_protect_name  = "${var.prefix}-key-protect"
+  resource_group_id = module.resource_group.resource_group_id
+  region            = var.region
+  tags              = var.resource_tags
+}
+
+module "key_protect_root_key" {
+  source                  = "../.."
+  key_protect_instance_id = module.key_protect_module.key_protect_guid
+  key_name                = "${var.prefix}-root-key"
+}
+
+module "key_protect_standard_key" {
+  source                  = "../.."
+  key_protect_instance_id = module.key_protect_module.key_protect_guid
+  key_name                = "${var.prefix}-standard-key"
+  standard_key            = true
 }
