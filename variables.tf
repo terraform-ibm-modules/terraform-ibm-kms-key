@@ -2,9 +2,9 @@
 # Input Variables
 ##############################################################################
 
-variable "kms_instance_id" {
+variable "key_protect_instance_id" {
   type        = string
-  description = "ID of KMS Instance"
+  description = "ID of Key Protect Instance"
 }
 
 variable "key_name" {
@@ -12,7 +12,7 @@ variable "key_name" {
   description = "Name to give the key"
 }
 
-variable "kms_key_ring_id" {
+variable "key_protect_key_ring_id" {
   type        = string
   description = "ID of Key Ring where key is assigned"
   default     = "default"

@@ -22,14 +22,14 @@ module "key_protect_module" {
 }
 
 module "key_protect_root_key" {
-  source          = "../.."
-  kms_instance_id = module.key_protect_module.key_protect_guid
-  key_name        = "${var.prefix}-root-key"
+  source                  = "../.."
+  key_protect_instance_id = module.key_protect_module.key_protect_guid
+  key_name                = "${var.prefix}-root-key"
 }
 
 module "key_protect_standard_key" {
-  source          = "../.."
-  kms_instance_id = module.key_protect_module.key_protect_guid
-  key_name        = "${var.prefix}-standard-key"
-  standard_key    = true
+  source                  = "../.."
+  key_protect_instance_id = module.key_protect_module.key_protect_guid
+  key_name                = "${var.prefix}-standard-key"
+  standard_key            = true
 }

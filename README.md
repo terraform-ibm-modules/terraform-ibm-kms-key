@@ -158,8 +158,8 @@ No modules.
 | <a name="input_endpoint_type"></a> [endpoint\_type](#input\_endpoint\_type) | Endpoint to use when creating the Key | `string` | `"private"` | no |
 | <a name="input_force_delete"></a> [force\_delete](#input\_force\_delete) | Set as true to enable forcing deletion even if key is in use | `bool` | `false` | no |
 | <a name="input_key_name"></a> [key\_name](#input\_key\_name) | Name to give the key | `string` | n/a | yes |
-| <a name="input_kms_instance_id"></a> [kms\_instance\_id](#input\_kms\_instance\_id) | ID of KMS Instance | `string` | n/a | yes |
-| <a name="input_kms_key_ring_id"></a> [kms\_key\_ring\_id](#input\_kms\_key\_ring\_id) | ID of Key Ring where key is assigned | `string` | `"default"` | no |
+| <a name="input_key_protect_instance_id"></a> [key\_protect\_instance\_id](#input\_key\_protect\_instance\_id) | ID of Key Protect Instance | `string` | n/a | yes |
+| <a name="input_key_protect_key_ring_id"></a> [key\_protect\_key\_ring\_id](#input\_key\_protect\_key\_ring\_id) | ID of Key Ring where key is assigned | `string` | `"default"` | no |
 | <a name="input_rotation_interval_month"></a> [rotation\_interval\_month](#input\_rotation\_interval\_month) | Interval in months to rotate the Key | `number` | `1` | no |
 | <a name="input_standard_key"></a> [standard\_key](#input\_standard\_key) | Set as true for Standard Key, false for Root Key | `bool` | `false` | no |
 
