@@ -11,6 +11,7 @@ resource "ibm_kms_key" "key" {
   force_delete  = var.force_delete
 }
 
+
 resource "ibm_kms_key_policies" "root_key_policy" {
   count         = var.standard_key ? 0 : 1
   endpoint_type = var.endpoint_type
