@@ -10,26 +10,35 @@ module "resource_group" {
 }
 
 ##############################################################################
-# Key Protect module
+# Key Protect instance
 ##############################################################################
 
-module "key_protect_module" {
-  source            = "git::https://github.com/terraform-ibm-modules/terraform-ibm-key-protect.git?ref=v1.2.0"
-  key_protect_name  = "${var.prefix}-key-protect"
+resource "ibm_resource_instance" "key_protect_instance" {
+  name              = "${var.prefix}-key-protect"
   resource_group_id = module.resource_group.resource_group_id
-  region            = var.region
+  service           = "kms"
+  plan              = "tiered-pricing"
+  location          = var.region
   tags              = var.resource_tags
 }
 
+##############################################################################
+# Key Protect root key
+##############################################################################
+
 module "key_protect_root_key" {
   source                  = "../.."
-  key_protect_instance_id = module.key_protect_module.key_protect_guid
+  key_protect_instance_id = ibm_resource_instance.key_protect_instance.guid
   key_name                = "${var.prefix}-root-key"
 }
 
+##############################################################################
+# Key Protect standard key
+##############################################################################
+
 module "key_protect_standard_key" {
   source                  = "../.."
-  key_protect_instance_id = module.key_protect_module.key_protect_guid
+  key_protect_instance_id = ibm_resource_instance.key_protect_instance.guid
   key_name                = "${var.prefix}-standard-key"
   standard_key            = true
 }

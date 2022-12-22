@@ -8,34 +8,34 @@ import (
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
 )
 
+// Use existing resource group for tests
 const resourceGroup = "geretain-test-key-protect-key"
-const defaultExampleTerraformDir = "examples/default"
+const terraformDir = "examples/default"
+
+func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
+	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
+		Testing:       t,
+		TerraformDir:  terraformDir,
+		Prefix:        prefix,
+		ResourceGroup: resourceGroup,
+	})
+
+	return options
+}
 
 func TestRunDefaultExample(t *testing.T) {
 	t.Parallel()
 
-	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
-		Testing:       t,
-		TerraformDir:  defaultExampleTerraformDir,
-		Prefix:        "kp-key",
-		ResourceGroup: resourceGroup,
-	})
-
+	options := setupOptions(t, "kp-key")
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")
 }
 
-func TestRunUpgradeExample(t *testing.T) {
+func TestRunUpgrade(t *testing.T) {
 	t.Parallel()
 
-	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
-		Testing:       t,
-		TerraformDir:  defaultExampleTerraformDir,
-		Prefix:        "kp-key-upg",
-		ResourceGroup: resourceGroup,
-	})
-
+	options := setupOptions(t, "kp-key-upg")
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
 		assert.Nil(t, err, "This should not have errored")

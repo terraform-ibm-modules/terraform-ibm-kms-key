@@ -4,7 +4,12 @@
 
 output "instance_id" {
   description = "Key Protect Instance ID"
-  value       = module.key_protect_module.key_protect_guid
+  value       = ibm_resource_instance.key_protect_instance.id
+}
+
+output "instance_guid" {
+  description = "Key Protect Instance GUID"
+  value       = ibm_resource_instance.key_protect_instance.guid
 }
 
 output "root_key_id" {

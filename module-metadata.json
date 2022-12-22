@@ -4,11 +4,11 @@
     "dual_auth_delete_enabled": {
       "name": "dual_auth_delete_enabled",
       "type": "bool",
-      "description": "Set as true to enable Dual Auth Delete",
+      "description": "If set to true, Key Protect enables a dual authorization policy on a single key. Note: Once the dual authorization policy is set on the key, it cannot be reverted. A key with dual authorization policy enabled cannot be destroyed by using Terraform.",
       "default": false,
       "pos": {
         "filename": "variables.tf",
-        "line": 44
+        "line": 48
       }
     },
     "endpoint_type": {
@@ -38,7 +38,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 50
+        "line": 54
       }
     },
     "key_name": {
@@ -58,7 +58,7 @@
     "key_protect_instance_id": {
       "name": "key_protect_instance_id",
       "type": "string",
-      "description": "ID of Key Protect Instance",
+      "description": "ID or GUID of Key Protect Instance",
       "required": true,
       "source": [
         "ibm_kms_key.key.instance_id",
@@ -78,7 +78,7 @@
     "key_protect_key_ring_id": {
       "name": "key_protect_key_ring_id",
       "type": "string",
-      "description": "ID of Key Ring where key is assigned",
+      "description": "The ID of the key ring where you want to add your Key Protect key",
       "default": "default",
       "source": [
         "ibm_kms_key.key.key_ring_id"
@@ -92,7 +92,7 @@
     "rotation_interval_month": {
       "name": "rotation_interval_month",
       "type": "number",
-      "description": "Interval in months to rotate the Key",
+      "description": "The key rotation time interval in months. Rotation policy cannot be set for standard key, so value is ignored if var.standard_key is true",
       "default": 1,
       "pos": {
         "filename": "variables.tf",
