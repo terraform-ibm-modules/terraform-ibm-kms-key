@@ -77,7 +77,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_dual_auth_delete_enabled"></a> [dual\_auth\_delete\_enabled](#input\_dual\_auth\_delete\_enabled) | If set to true, Key Protect enables a dual authorization policy on a single key. Note: Once the dual authorization policy is set on the key, it cannot be reverted. A key with dual authorization policy enabled cannot be destroyed by using Terraform. | `bool` | `false` | no |
-| <a name="input_endpoint_type"></a> [endpoint\_type](#input\_endpoint\_type) | Endpoint to use when creating the Key | `string` | `"private"` | no |
+| <a name="input_endpoint_type"></a> [endpoint\_type](#input\_endpoint\_type) | Endpoint to use when creating the Key | `string` | `"public"` | no |
 | <a name="input_force_delete"></a> [force\_delete](#input\_force\_delete) | Set as true to enable forcing deletion even if key is in use | `bool` | `false` | no |
 | <a name="input_key_name"></a> [key\_name](#input\_key\_name) | Name to give the key | `string` | n/a | yes |
 | <a name="input_key_protect_instance_id"></a> [key\_protect\_instance\_id](#input\_key\_protect\_instance\_id) | ID or GUID of Key Protect Instance | `string` | n/a | yes |

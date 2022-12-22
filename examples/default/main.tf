@@ -20,7 +20,6 @@ resource "ibm_resource_instance" "key_protect_instance" {
   plan              = "tiered-pricing"
   location          = var.region
   tags              = var.resource_tags
-  service_endpoints = "public-and-private"
 }
 
 ##############################################################################
