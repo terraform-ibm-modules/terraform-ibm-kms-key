@@ -27,7 +27,7 @@ variable "standard_key" {
 variable "endpoint_type" {
   type        = string
   description = "Endpoint to use when creating the Key"
-  default     = "public"
+  default     = "private"
 
   validation {
     condition     = can(regex("public|private", var.endpoint_type))

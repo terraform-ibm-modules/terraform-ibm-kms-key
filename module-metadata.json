@@ -15,7 +15,7 @@
       "name": "endpoint_type",
       "type": "string",
       "description": "Endpoint to use when creating the Key",
-      "default": "public",
+      "default": "private",
       "source": [
         "ibm_kms_key.key.endpoint_type",
         "ibm_kms_key_policies.root_key_policy.endpoint_type",
