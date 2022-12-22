@@ -14,7 +14,7 @@ module "resource_group" {
 ##############################################################################
 
 module "key_protect_module" {
-  source            = "git::https://github.com/terraform-ibm-modules/terraform-ibm-key-protect.git?ref=v1.1.1"
+  source            = "git::https://github.com/terraform-ibm-modules/terraform-ibm-key-protect.git?ref=v1.2.0"
   key_protect_name  = "${var.prefix}-key-protect"
   resource_group_id = module.resource_group.resource_group_id
   region            = var.region
