@@ -40,7 +40,7 @@ variable "rotation_interval_month" {
   description = "The key rotation time interval in months. Rotation policy cannot be set for standard key, so value is ignored if var.standard_key is true"
   default     = 1
   validation {
-    condition     = var.rotation_interval_month <= 12 && var.rotation_interval_month >= 0
+    condition     = var.rotation_interval_month <= 12 && var.rotation_interval_month >= 1
     error_message = "Value must be between 1 and 12."
   }
 }
