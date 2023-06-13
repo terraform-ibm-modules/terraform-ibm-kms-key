@@ -19,16 +19,16 @@ provider "ibm" {
 
 # Key Protect root key
 module "key_protect_root_key" {
-  # Replace "main" with a GIT release version to lock into a specific release
-  source                   = "git::https://github.com/terraform-ibm-modules/terraform-ibm-key-protect-key.git?ref=main"
+  source  = "terraform-ibm-modules/key-protect-key/ibm"
+  version = "latest" # Replace "latest" with a release version to lock into a specific release
   key_protect_instance_id = ibm_resource_instance.key_protect_instance.guid
   key_name                = "my-root-key"
 }
 
 # Key Protect standard key
 module "key_protect_standard_key" {
-  # Replace "main" with a GIT release version to lock into a specific release
-  source                   = "git::https://github.com/terraform-ibm-modules/terraform-ibm-key-protect-key.git?ref=main"
+  source  = "terraform-ibm-modules/key-protect-key/ibm"
+  version = "latest" # Replace "latest" with a release version to lock into a specific release
   key_protect_instance_id = ibm_resource_instance.key_protect_instance.guid
   key_name                = "my-standard-key"
   standard_key            = true
