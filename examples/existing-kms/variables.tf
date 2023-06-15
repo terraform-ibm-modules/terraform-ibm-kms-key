@@ -13,7 +13,7 @@ variable "region" {
 variable "prefix" {
   type        = string
   description = "Prefix to append to all resources created by this example"
-  default     = "kp-key"
+  default     = "kms-key"
 }
 
 variable "existing_kms_instance_guid" {
