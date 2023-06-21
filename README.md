@@ -50,6 +50,7 @@ You need the following permissions to run this module.
 ## Examples
 
 - [ End to end example with default values](examples/default)
+- [ Example that uses existing KMS instance](examples/existing-kms)
 <!-- END EXAMPLES HOOK -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
