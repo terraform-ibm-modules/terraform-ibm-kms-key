@@ -4,7 +4,7 @@
     "dual_auth_delete_enabled": {
       "name": "dual_auth_delete_enabled",
       "type": "bool",
-      "description": "If set to true, Key Protect enables a dual authorization policy on a single key. Note: Once the dual authorization policy is set on the key, it cannot be reverted. A key with dual authorization policy enabled cannot be destroyed by using Terraform.",
+      "description": "If set to true, KMS enables a dual authorization policy on a single key. Note: Once the dual authorization policy is set on the key, it cannot be reverted. A key with dual authorization policy enabled cannot be destroyed by using Terraform.",
       "default": false,
       "pos": {
         "filename": "variables.tf",
@@ -55,10 +55,10 @@
       },
       "immutable": true
     },
-    "key_protect_instance_id": {
-      "name": "key_protect_instance_id",
+    "kms_instance_id": {
+      "name": "kms_instance_id",
       "type": "string",
-      "description": "ID or GUID of Key Protect Instance",
+      "description": "ID or GUID of KMS Instance",
       "required": true,
       "source": [
         "ibm_kms_key.key.instance_id",
@@ -75,10 +75,10 @@
         "service:kms|hs-crypto"
       ]
     },
-    "key_protect_key_ring_id": {
-      "name": "key_protect_key_ring_id",
+    "kms_key_ring_id": {
+      "name": "kms_key_ring_id",
       "type": "string",
-      "description": "The ID of the key ring where you want to add your Key Protect key",
+      "description": "The ID of the key ring where you want to add your KMS key",
       "default": "default",
       "source": [
         "ibm_kms_key.key.key_ring_id"
@@ -174,9 +174,9 @@
       "attributes": {
         "endpoint_type": "endpoint_type",
         "force_delete": "force_delete",
-        "instance_id": "key_protect_instance_id",
+        "instance_id": "kms_instance_id",
         "key_name": "key_name",
-        "key_ring_id": "key_protect_key_ring_id",
+        "key_ring_id": "kms_key_ring_id",
         "standard_key": "standard_key"
       },
       "provider": {
@@ -194,7 +194,7 @@
       "attributes": {
         "count": "standard_key",
         "endpoint_type": "endpoint_type",
-        "instance_id": "key_protect_instance_id"
+        "instance_id": "kms_instance_id"
       },
       "provider": {
         "name": "ibm"
@@ -211,7 +211,7 @@
       "attributes": {
         "count": "standard_key",
         "endpoint_type": "endpoint_type",
-        "instance_id": "key_protect_instance_id"
+        "instance_id": "kms_instance_id"
       },
       "provider": {
         "name": "ibm"

@@ -11,7 +11,7 @@ module "resource_group" {
 }
 
 ##############################################################################
-# Key Protect instance
+# KMS (Key Protect) instance
 ##############################################################################
 
 resource "ibm_resource_instance" "key_protect_instance" {
@@ -24,22 +24,22 @@ resource "ibm_resource_instance" "key_protect_instance" {
 }
 
 ##############################################################################
-# Key Protect root key
+# KMS root key
 ##############################################################################
 
-module "key_protect_root_key" {
-  source                  = "../.."
-  key_protect_instance_id = ibm_resource_instance.key_protect_instance.guid
-  key_name                = "${var.prefix}-root-key"
+module "kms_root_key" {
+  source          = "../.."
+  kms_instance_id = ibm_resource_instance.key_protect_instance.guid
+  key_name        = "${var.prefix}-root-key"
 }
 
 ##############################################################################
-# Key Protect standard key
+# KMS standard key
 ##############################################################################
 
-module "key_protect_standard_key" {
-  source                  = "../.."
-  key_protect_instance_id = ibm_resource_instance.key_protect_instance.guid
-  key_name                = "${var.prefix}-standard-key"
-  standard_key            = true
+module "kms_standard_key" {
+  source          = "../.."
+  kms_instance_id = ibm_resource_instance.key_protect_instance.guid
+  key_name        = "${var.prefix}-standard-key"
+  standard_key    = true
 }
