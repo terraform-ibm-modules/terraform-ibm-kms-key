@@ -3,7 +3,7 @@
 ##############################################################################
 
 output "root_key_id" {
-  description = "Key Protect Key ID"
+  description = "KMS Root Key ID"
   value       = module.kms_root_key.key_id
 }
 
@@ -18,7 +18,7 @@ output "root_key_dual_auth_delete_enabled" {
 }
 
 output "standard_key_id" {
-  description = "Key Protect Key ID"
+  description = "KMS Standard Key ID"
   value       = module.kms_standard_key.key_id
 }
 

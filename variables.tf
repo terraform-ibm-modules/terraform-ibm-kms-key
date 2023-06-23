@@ -2,9 +2,9 @@
 # Input Variables
 ##############################################################################
 
-variable "key_protect_instance_id" {
+variable "kms_instance_id" {
   type        = string
-  description = "ID or GUID of Key Protect Instance"
+  description = "ID or GUID of KMS Instance"
 }
 
 variable "key_name" {
@@ -12,9 +12,9 @@ variable "key_name" {
   description = "Name to give the key"
 }
 
-variable "key_protect_key_ring_id" {
+variable "kms_key_ring_id" {
   type        = string
-  description = "The ID of the key ring where you want to add your Key Protect key"
+  description = "The ID of the key ring where you want to add your KMS key"
   default     = "default"
 }
 
@@ -47,7 +47,7 @@ variable "rotation_interval_month" {
 
 variable "dual_auth_delete_enabled" {
   type        = bool
-  description = "If set to true, Key Protect enables a dual authorization policy on a single key. Note: Once the dual authorization policy is set on the key, it cannot be reverted. A key with dual authorization policy enabled cannot be destroyed by using Terraform."
+  description = "If set to true, KMS enables a dual authorization policy on a single key. Note: Once the dual authorization policy is set on the key, it cannot be reverted. A key with dual authorization policy enabled cannot be destroyed by using Terraform."
   default     = false
 }
 

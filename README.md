@@ -1,4 +1,4 @@
-# Key Protect key module
+# KMS key module
 
 [![Stable (With quality checks)](https://img.shields.io/badge/Status-Stable%20(With%20quality%20checks)-green?style=plastic)](https://terraform-ibm-modules.github.io/documentation/#/badge-status)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
@@ -6,30 +6,30 @@
 [![latest release](https://img.shields.io/github/v/release/terraform-ibm-modules/terraform-ibm-key-protect-key?logo=GitHub&sort=semver)](https://github.com/terraform-ibm-modules/terraform-ibm-key-protect-key/releases/latest)
 [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
 
-This module supports creating a standard or root key in an existing key ring and Key Protect instance. You can specify rotation and deletion policies.
+This module supports creating a standard or root key in an existing key ring and KMS instance. You can specify rotation and deletion policies.
 
 ## Usage
 
 ```hcl
 provider "ibm" {
   ibmcloud_api_key = "XXXXXXXXXX"
-  # Must be the same region the Key Protect instance is in
+  # Must be the same region the KMS instance is in
   region           = "us-south"
 }
 
-# Key Protect root key
-module "key_protect_root_key" {
-  source  = "terraform-ibm-modules/key-protect-key/ibm"
+# KMS root key
+module "kms_root_key" {
+  source  = "terraform-ibm-modules/kms-key/ibm"
   version = "latest" # Replace "latest" with a release version to lock into a specific release
-  key_protect_instance_id = ibm_resource_instance.key_protect_instance.guid
+  kms_instance_id = ibm_resource_instance.kms_instance.guid
   key_name                = "my-root-key"
 }
 
-# Key Protect standard key
-module "key_protect_standard_key" {
-  source  = "terraform-ibm-modules/key-protect-key/ibm"
+# KMS standard key
+module "kms_standard_key" {
+  source  = "terraform-ibm-modules/kms-key/ibm"
   version = "latest" # Replace "latest" with a release version to lock into a specific release
-  key_protect_instance_id = ibm_resource_instance.key_protect_instance.guid
+  kms_instance_id = ibm_resource_instance.kms_instance.guid
   key_name                = "my-standard-key"
   standard_key            = true
 }
@@ -42,7 +42,7 @@ You need the following permissions to run this module.
     - **Resource Group** service
         - `Viewer` platform access
 - IAM Services
-    - **Key Protect** service
+    - **KMS** service
         - `Viewer` platform access
         - `Manager` service access
 
@@ -76,12 +76,12 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_dual_auth_delete_enabled"></a> [dual\_auth\_delete\_enabled](#input\_dual\_auth\_delete\_enabled) | If set to true, Key Protect enables a dual authorization policy on a single key. Note: Once the dual authorization policy is set on the key, it cannot be reverted. A key with dual authorization policy enabled cannot be destroyed by using Terraform. | `bool` | `false` | no |
+| <a name="input_dual_auth_delete_enabled"></a> [dual\_auth\_delete\_enabled](#input\_dual\_auth\_delete\_enabled) | If set to true, KMS enables a dual authorization policy on a single key. Note: Once the dual authorization policy is set on the key, it cannot be reverted. A key with dual authorization policy enabled cannot be destroyed by using Terraform. | `bool` | `false` | no |
 | <a name="input_endpoint_type"></a> [endpoint\_type](#input\_endpoint\_type) | Endpoint to use when creating the Key | `string` | `"public"` | no |
 | <a name="input_force_delete"></a> [force\_delete](#input\_force\_delete) | Set as true to enable forcing deletion even if key is in use | `bool` | `false` | no |
 | <a name="input_key_name"></a> [key\_name](#input\_key\_name) | Name to give the key | `string` | n/a | yes |
-| <a name="input_key_protect_instance_id"></a> [key\_protect\_instance\_id](#input\_key\_protect\_instance\_id) | ID or GUID of Key Protect Instance | `string` | n/a | yes |
-| <a name="input_key_protect_key_ring_id"></a> [key\_protect\_key\_ring\_id](#input\_key\_protect\_key\_ring\_id) | The ID of the key ring where you want to add your Key Protect key | `string` | `"default"` | no |
+| <a name="input_kms_instance_id"></a> [kms\_instance\_id](#input\_kms\_instance\_id) | ID or GUID of KMS Instance | `string` | n/a | yes |
+| <a name="input_kms_key_ring_id"></a> [kms\_key\_ring\_id](#input\_kms\_key\_ring\_id) | The ID of the key ring where you want to add your KMS key | `string` | `"default"` | no |
 | <a name="input_rotation_interval_month"></a> [rotation\_interval\_month](#input\_rotation\_interval\_month) | The key rotation time interval in months. Rotation policy cannot be set for standard key, so value is ignored if var.standard\_key is true | `number` | `1` | no |
 | <a name="input_standard_key"></a> [standard\_key](#input\_standard\_key) | Set as true for Standard Key, false for Root Key | `bool` | `false` | no |
 
