@@ -15,12 +15,12 @@ repository:
   # By changing this field, you rename the repository.
 
   # Uncomment this name property and set the name to the current repo name.
-  name: "terraform-ibm-key-protect-key"
+  name: "terraform-ibm-kms-key"
 
   # The description is displayed under the repository name on the
   # organization page and in the 'About' section of the repository.
 
   # Uncomment this description property
   # and update the description to the current repo description.
-  description: "Module for creation of Key Protect keys"
-  topics: core-team, terraform, ibm-cloud, terraform-module, key-protect, kms
+  description: "Module for creation of KMS keys"
+  topics: core-team, terraform, ibm-cloud, terraform-module, key-protect, kms, hpcs
