@@ -6,7 +6,7 @@
 [![latest release](https://img.shields.io/github/v/release/terraform-ibm-modules/terraform-ibm-kms-key?logo=GitHub&sort=semver)](https://github.com/terraform-ibm-modules/terraform-ibm-kms-key/releases/latest)
 [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
 
-This module supports creating a standard or root key in an existing key ring and KMS instance. KMS can be Key Protect and Hyper Protect Crypto Services(HPCS) instance. You can specify rotation and deletion policies for the keys.
+This module supports creating a standard or root key in an existing key ring and KMS instance. KMS can be Key Protect or Hyper Protect Crypto Services(HPCS) instance. You can specify rotation and deletion policies for the keys.
 
 ## Usage
 
