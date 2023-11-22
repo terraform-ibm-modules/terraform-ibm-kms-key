@@ -20,7 +20,7 @@ provider "ibm" {
 # KMS root key
 module "kms_root_key" {
   source          = "terraform-ibm-modules/kms-key/ibm"
-  version         = "latest" # Replace "latest" with a release version to lock into a specific release
+  version         = "X.X.X" # Replace "X.X.X" with a release version to lock into a specific release
   kms_instance_id = "XXxxXXxx-xxxx-XXXX-xxxx-XXxxXXxx"
   key_name        = "my-root-key"
 }
@@ -28,7 +28,7 @@ module "kms_root_key" {
 # KMS standard key
 module "kms_standard_key" {
   source          = "terraform-ibm-modules/kms-key/ibm"
-  version         = "latest" # Replace "latest" with a release version to lock into a specific release
+  version         = "X.X.X" # Replace "X.X.X" with a release version to lock into a specific release
   kms_instance_id = "XXxxXXxx-xxxx-XXXX-xxxx-XXxxXXxx"
   key_name        = "my-standard-key"
   standard_key    = true
