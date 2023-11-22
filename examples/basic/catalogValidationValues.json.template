@@ -1,0 +1,5 @@
+{
+  "ibmcloud_api_key": $VALIDATION_APIKEY,
+  "existing_kms_instance_guid": $HPCS_US_SOUTH_GUID,
+  "prefix": $PREFIX
+}
