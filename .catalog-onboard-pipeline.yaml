@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+offerings:
+  - name: terraform-ibm-kms-key
+    kind: module
+    catalog_id: 7df1e4ca-d54c-4fd0-82ce-3d13247308cd
+    offering_id: 7ec30191-9276-4511-917d-698059dd1fa8
+    examples:
+      - name: basic
+        mark_ready: true
+      - name: complete
+        mark_ready: true
