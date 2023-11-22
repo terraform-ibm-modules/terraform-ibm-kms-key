@@ -24,11 +24,15 @@
       "features": [
         {
           "title": "Create a KMS key",
-          "description": "Create a standard or root key in an IBM Key Management Service (KMS) instance."
+          "description": "Create a standard or root key in an IBM KMS instance."
         },
         {
           "title": "Create a KMS key policy",
-          "description": "Create a key policy for a standard or root key in an IBM Key Management Service (KMS) instance."
+          "description": "Create a key policy for a standard or root key in an IBM KMS instance."
+        },
+        {
+          "title": "Add key to the KMS key ring",
+          "description": "Add key to the existing KMS key ring."
         }
       ],
       "flavors": [
