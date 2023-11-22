@@ -18,21 +18,17 @@
         "encryption"
       ],
       "short_description": "Terraform module to create a standard or root key in an IBM Key Management Service (KMS).",
-      "long_description": "Use this module to create a standard or root key in an existing key ring and IBM Key Management Services (KMS) instance. The KMS can be IBM Key Protect or IBM Cloud Hyper Protect Crypto Services(HPCS) instance. You can specify rotation and deletion policies for the keys.\n\n### Usage\n```hcl\nprovider \"ibm\" {\n  ibmcloud_api_key = \"XXXXXXXXXX\"\n  # Must be the same region the KMS instance is in\n  region           = \"us-south\"\n}\n\n# KMS root key\nmodule \"kms_root_key\" {\n  # Replace \"X.X.X\" with a release version to lock into a specific release\n  source  = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source?archive=tgz&kind=terraform&name=terraform-ibm-kms-key&version=X.X.X\"\n  kms_instance_id = ibm_resource_instance.kms_instance.guid\n  key_name                = \"my-root-key\"\n}\n\n# KMS standard key\nmodule \"kms_standard_key\" {\n  # Replace \"X.X.X\" with a release version to lock into a specific release\n  source  = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source?archive=tgz&kind=terraform&name=terraform-ibm-kms-key&version=X.X.X\"\n  kms_instance_id = ibm_resource_instance.kms_instance.guid\n  key_name                = \"my-standard-key\"\n  standard_key            = true\n}\n```",
+      "long_description": "Use this module to create a standard or root key in an existing key ring and IBM Key Management Services (KMS) instance. The KMS can be IBM Key Protect or IBM Cloud Hyper Protect Crypto Services(HPCS) instance. You can specify rotation and deletion policies for the keys.\n\n### Usage\n```hcl\nprovider \"ibm\" {\n  ibmcloud_api_key = \"XXXXXXXXXX\"\n  # Must be the same region the KMS instance is in\n  region           = \"us-south\"\n}\n\n# KMS root key\nmodule \"kms_root_key\" {\n  # Replace \"X.X.X\" with a release version to lock into a specific release\n  source.         = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source?archive=tgz&kind=terraform&name=terraform-ibm-kms-key&version=X.X.X\"\n  kms_instance_id = ibm_resource_instance.kms_instance.guid\n  key_name        = \"my-root-key\"\n}\n\n# KMS standard key\nmodule \"kms_standard_key\" {\n  # Replace \"X.X.X\" with a release version to lock into a specific release\n  source.         = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source?archive=tgz&kind=terraform&name=terraform-ibm-kms-key&version=X.X.X\"\n  kms_instance_id = ibm_resource_instance.kms_instance.guid\n  key_name        = \"my-standard-key\"\n  standard_key    = true\n}\n```",
       "offering_docs_url": "https://github.com/terraform-ibm-modules/terraform-ibm-kms-key/blob/main/README.md",
       "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/documentation/main/icons/key_protect_icon.svg",
       "features": [
         {
           "title": "Create a KMS key",
-          "description": "Create a standard or root key in an IBM KMS instance."
+          "description": "Create a standard or root key in an existing IBM KMS instance key ring."
         },
         {
           "title": "Create a KMS key policy",
           "description": "Create a key policy for a standard or root key in an IBM KMS instance."
-        },
-        {
-          "title": "Add key to the KMS key ring",
-          "description": "Add key to the existing KMS key ring."
         }
       ],
       "flavors": [
@@ -65,7 +61,7 @@
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/documentation/main/icons/ModuleExampleDiagram.svg",
                   "type": "image/svg+xml"
                 },
-                "description": "A complete example shows how to provision a Key Protect instance, a root key and a standard key."
+                "description": "A complete example that shows how to provision a Key Protect instance, a root key and a standard key."
               }
             ]
           }
