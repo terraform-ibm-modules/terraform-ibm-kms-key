@@ -19,19 +19,19 @@ provider "ibm" {
 
 # KMS root key
 module "kms_root_key" {
-  source  = "terraform-ibm-modules/kms-key/ibm"
-  version = "latest" # Replace "latest" with a release version to lock into a specific release
-  kms_instance_id = ibm_resource_instance.kms_instance.guid
-  key_name                = "my-root-key"
+  source          = "terraform-ibm-modules/kms-key/ibm"
+  version         = "X.X.X" # Replace "X.X.X" with a release version to lock into a specific release
+  kms_instance_id = "XXxxXXxx-xxxx-XXXX-xxxx-XXxxXXxx"
+  key_name        = "my-root-key"
 }
 
 # KMS standard key
 module "kms_standard_key" {
-  source  = "terraform-ibm-modules/kms-key/ibm"
-  version = "latest" # Replace "latest" with a release version to lock into a specific release
-  kms_instance_id = ibm_resource_instance.kms_instance.guid
-  key_name                = "my-standard-key"
-  standard_key            = true
+  source          = "terraform-ibm-modules/kms-key/ibm"
+  version         = "X.X.X" # Replace "X.X.X" with a release version to lock into a specific release
+  kms_instance_id = "XXxxXXxx-xxxx-XXXX-xxxx-XXxxXXxx"
+  key_name        = "my-standard-key"
+  standard_key    = true
 }
 ```
 
@@ -49,8 +49,8 @@ You need the following permissions to run this module.
 <!-- BEGIN EXAMPLES HOOK -->
 ## Examples
 
-- [ End to end example with default values](examples/default)
-- [ Example that uses existing KMS instance](examples/existing-kms)
+- [ Basic example](examples/basic)
+- [ Complete example](examples/complete)
 <!-- END EXAMPLES HOOK -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ### Requirements
