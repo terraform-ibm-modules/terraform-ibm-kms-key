@@ -8,7 +8,19 @@
 
 This module supports creating a standard or root key in an existing key ring and KMS instance. KMS can be Key Protect or Hyper Protect Crypto Services(HPCS) instance. You can specify rotation and deletion policies for the keys.
 
-## Usage
+<!-- Below content is automatically populated via pre-commit hook -->
+<!-- BEGIN OVERVIEW HOOK -->
+## Overview
+* [terraform-ibm-kms-key](#terraform-ibm-kms-key)
+* [Examples](./examples)
+    * [Basic example](./examples/basic)
+    * [Complete example](./examples/complete)
+* [Contributing](#contributing)
+<!-- END OVERVIEW HOOK -->
+
+## terraform-ibm-kms-key
+
+### Usage
 
 ```hcl
 provider "ibm" {
@@ -35,7 +47,7 @@ module "kms_standard_key" {
 }
 ```
 
-## Required IAM access policies
+### Required IAM access policies
 You need the following permissions to run this module.
 
 - Account Management
@@ -46,12 +58,6 @@ You need the following permissions to run this module.
         - `Viewer` platform access
         - `Manager` service access
 
-<!-- BEGIN EXAMPLES HOOK -->
-## Examples
-
-- [ Basic example](examples/basic)
-- [ Complete example](examples/complete)
-<!-- END EXAMPLES HOOK -->
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ### Requirements
 

@@ -23,4 +23,4 @@ repository:
   # Uncomment this description property
   # and update the description to the current repo description.
   description: "Module for creation of KMS keys"
-  topics: core-team, terraform, ibm-cloud, terraform-module, key-protect, kms, hpcs
+  topics: core-team, terraform, ibm-cloud, terraform-module, key-protect, kms, hpcs, graduated, supported
