@@ -60,6 +60,7 @@ func TestRunBasicExample(t *testing.T) {
 		Testing:      t,
 		TerraformDir: basicExampleTerraformDir,
 		Prefix:       "kms-key-basic",
+		Region:       "us-south",
 	})
 
 	terraformVars := map[string]interface{}{
