@@ -59,11 +59,15 @@ func TestRunBasicExample(t *testing.T) {
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
 		Testing:      t,
 		TerraformDir: basicExampleTerraformDir,
-		Prefix:       "hpcs",
-		TerraformVars: map[string]interface{}{
-			"existing_kms_instance_guid": permanentResources["hpcs_south"],
-		},
+		Prefix:       "kms-key-basic",
 	})
+
+	terraformVars := map[string]interface{}{
+		"prefix":                     options.Prefix,
+		"existing_kms_instance_guid": permanentResources["hpcs_south"],
+	}
+
+	options.TerraformVars = terraformVars
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
