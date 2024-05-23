@@ -41,5 +41,6 @@ module "kms_standard_key" {
   source          = "../.."
   kms_instance_id = ibm_resource_instance.key_protect_instance.guid
   key_name        = "${var.prefix}-standard-key"
+  force_delete    = var.force_delete
   standard_key    = true
 }

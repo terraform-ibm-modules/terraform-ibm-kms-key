@@ -47,7 +47,19 @@ func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 func TestRunCompleteExample(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptions(t, "kms-key")
+	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
+		Testing:      t,
+		TerraformDir: completeExampleTerraformDir,
+		Prefix:       "kms-key",
+	})
+
+	terraformVars := map[string]interface{}{
+		"prefix":       options.Prefix,
+		"force_delete":	true,
+	}
+
+	options.TerraformVars = terraformVars
+
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")
@@ -65,6 +77,7 @@ func TestRunBasicExample(t *testing.T) {
 	terraformVars := map[string]interface{}{
 		"prefix":                     options.Prefix,
 		"existing_kms_instance_guid": permanentResources["hpcs_south"],
+		"force_delete":	true,
 	}
 
 	options.TerraformVars = terraformVars

@@ -25,3 +25,9 @@ variable "resource_tags" {
   description = "Optional list of tags to be added to created resources"
   default     = []
 }
+
+variable "force_delete" {
+  type        = bool
+  description = "Set as true to enable forcing deletion even if key is in use"
+  default     = false
+}
