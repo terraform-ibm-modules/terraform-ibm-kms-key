@@ -16,6 +16,6 @@ module "kms_standard_key" {
   source          = "../.."
   kms_instance_id = var.existing_kms_instance_guid
   key_name        = "${var.prefix}-standard-key"
-  force_delete    = var.force_delete
   standard_key    = true
+  force_delete    = true # setting it to true for testing purpose
 }
