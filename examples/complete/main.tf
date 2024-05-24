@@ -42,4 +42,5 @@ module "kms_standard_key" {
   kms_instance_id = ibm_resource_instance.key_protect_instance.guid
   key_name        = "${var.prefix}-standard-key"
   standard_key    = true
+  force_delete    = true # Setting it to true for testing purpose
 }
