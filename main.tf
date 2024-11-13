@@ -33,3 +33,52 @@ resource "ibm_kms_key_policies" "standard_key_policy" {
     enabled = var.dual_auth_delete_enabled
   }
 }
+
+locals {
+  # tflint-ignore: terraform_unused_declarations
+  kmip_root_key_validation = (length(var.kmip) > 0 && var.standard_key) ? tobool("When providing a KMIP Adapter/Certificate for a key, the key being created must be a root key.") : true
+
+  kmip_certs = flatten([
+    [
+      for adapter in var.kmip : [
+        for certificate in adapter.certificates : {
+          adapter_name     = adapter.name
+          certificate_name = try(certificate.name, null)
+          certificate      = certificate.certificate
+          # Check if filepath string is given, used in ibm_kms_kmip_client_cert call
+          cert_is_file = length(regexall("^.+\\.pem$", certificate.certificate)) > 0
+        }
+      ]
+    ]
+  ])
+
+  kmip_adapter_id_output = {
+    for idx, _ in ibm_kms_kmip_adapter.kmip_adapter :
+    idx => ibm_kms_kmip_adapter.kmip_adapter[idx].adapter_id
+  }
+  kmip_cert_id_output = {
+    for idx, _ in ibm_kms_kmip_client_cert.kmip_cert :
+    idx => ibm_kms_kmip_client_cert.kmip_cert[idx].cert_id
+  }
+}
+
+resource "ibm_kms_kmip_adapter" "kmip_adapter" {
+  for_each    = { for adapter in var.kmip : adapter.name => adapter }
+  instance_id = var.kms_instance_id
+  profile     = "native_1.0"
+  profile_data = {
+    "crk_id" = ibm_kms_key.key.key_id
+  }
+  name          = each.key
+  description   = each.value.description
+  endpoint_type = var.endpoint_type
+}
+
+resource "ibm_kms_kmip_client_cert" "kmip_cert" {
+  for_each      = { for idx, obj in local.kmip_certs : "${obj.adapter_name}-${idx}" => obj }
+  endpoint_type = var.endpoint_type
+  instance_id   = var.kms_instance_id
+  adapter_id    = ibm_kms_kmip_adapter.kmip_adapter[each.value.adapter_name].adapter_id
+  certificate   = each.value.cert_is_file ? file(each.value.certificate) : each.value.certificate
+  name          = each.value.certificate_name
+}

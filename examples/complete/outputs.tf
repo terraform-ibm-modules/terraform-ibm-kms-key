@@ -51,3 +51,13 @@ output "resource_group_id" {
   description = "Resource group ID"
   value       = module.resource_group.resource_group_id
 }
+
+output "root_key_adapter_ids" {
+  description = "Root Key KMIP adapter IDs"
+  value       = module.kms_root_key.adapter_ids
+}
+
+output "root_key_cert_ids" {
+  description = "Root Key KMIP cert IDs"
+  value       = module.kms_root_key.cert_ids
+}

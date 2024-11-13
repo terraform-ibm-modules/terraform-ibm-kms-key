@@ -48,6 +48,15 @@ func TestRunCompleteExample(t *testing.T) {
 	t.Parallel()
 
 	options := setupOptions(t, "kms-key")
+
+	options.TerraformVars = map[string]interface{}{
+		"existing_secrets_manager_crn":      permanentResources["secretsManagerCRN"],
+		"secrets_manager_dns_provider_name": permanentResources["dnsProviderName"],
+		"secrets_manager_ca_name":           permanentResources["certificateAuthorityName"],
+		"prefix":                            options.Prefix,
+		"region":                            options.Region,
+	}
+
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")

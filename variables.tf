@@ -56,3 +56,40 @@ variable "force_delete" {
   description = "Set as true to enable forcing deletion even if key is in use"
   default     = false
 }
+
+variable "kmip" {
+  type = list(object({
+    name        = string
+    description = optional(string)
+    certificates = optional(list(object({
+      name        = optional(string)
+      certificate = string
+    })))
+  }))
+  description = "value"
+  default     = []
+
+  validation {
+    condition = alltrue([for adapter in var.kmip :
+      length(adapter.name) >= 2 && length(adapter.name) <= 40
+    ])
+    error_message = "`kmip[*].name` must be between 2 and 40 characters."
+  }
+
+  validation {
+    condition = alltrue([for adapter in var.kmip :
+      adapter.description == null ? true :
+      length(adapter.description) >= 2 && length(adapter.description) <= 240
+    ])
+    error_message = "`kmip[*].description` must be between 2 and 240 characters."
+  }
+
+  validation {
+    condition = alltrue([
+      for adapter in var.kmip :
+      adapter.certificates == null ? true :
+      length(adapter.certificates) <= 200
+    ])
+    error_message = "Each adapter can contain up to 200 certificates, current length exceeds this limit."
+  }
+}
