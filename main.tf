@@ -36,7 +36,7 @@ resource "ibm_kms_key_policies" "standard_key_policy" {
 
 locals {
   # tflint-ignore: terraform_unused_declarations
-  kmip_root_key_validation = (length(var.kmip) > 0 && var.standard_key) ? tobool("When providing a KMIP Adapter/Certificate for a key, the key being created must be a root key.") : true
+  kmip_root_key_validation = (length(var.kmip) > 0 && var.standard_key) ? tobool("When providing a value for `kmip`, the key being created must be a root key.") : true
 
   kmip_certs = flatten([
     [

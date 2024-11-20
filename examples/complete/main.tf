@@ -14,29 +14,52 @@ module "resource_group" {
 # Secrets Manager Certificate Setup
 ##############################################################################
 
+module "secrets_manager" {
+  count                = var.existing_secrets_manager_crn == null ? 1 : 0
+  source               = "terraform-ibm-modules/secrets-manager/ibm"
+  version              = "1.18.14"
+  secrets_manager_name = "${var.prefix}-secrets-manager"
+  sm_service_plan      = "trial"
+  resource_group_id    = module.resource_group.resource_group_id
+  region               = var.region
+}
+
 module "sm_crn" {
   source  = "terraform-ibm-modules/common-utilities/ibm//modules/crn-parser"
   version = "1.1.0"
-  crn     = var.existing_secrets_manager_crn
+  crn     = var.existing_secrets_manager_crn == null ? module.secrets_manager[0].secrets_manager_crn : var.existing_secrets_manager_crn
+}
+
+module "secrets_manager_private_cert_engine" {
+  count                     = var.existing_secrets_manager_crn == null ? 1 : 0
+  source                    = "terraform-ibm-modules/secrets-manager-private-cert-engine/ibm"
+  version                   = "1.3.4"
+  secrets_manager_guid      = module.sm_crn.service_instance
+  region                    = var.region
+  root_ca_name              = "${var.prefix}-ca"
+  root_ca_common_name       = "${var.prefix}.${var.domain_name}"
+  intermediate_ca_name      = "${var.prefix}-int-ca"
+  certificate_template_name = "${var.prefix}-template"
+  root_ca_max_ttl           = "8760h"
 }
 
 module "secrets_manager_cert" {
-  source                            = "terraform-ibm-modules/secrets-manager-public-cert/ibm"
-  version                           = "1.2.1"
-  secrets_manager_guid              = module.sm_crn.service_instance
-  secrets_manager_region            = module.sm_crn.region
-  cert_name                         = "${var.prefix}-kmip-cert"
-  secrets_manager_dns_provider_name = var.secrets_manager_dns_provider_name
-  secrets_manager_ca_name           = var.secrets_manager_ca_name
-  cert_common_name                  = "${var.prefix}.${var.domain_name}"
+  # explicit depends on because the cert engine must complete creating the template before the cert is created
+  # no outputs from the private cert engine to reference in this module call
+  depends_on             = [module.secrets_manager_private_cert_engine]
+  source                 = "terraform-ibm-modules/secrets-manager-private-cert/ibm"
+  version                = "1.3.2"
+  secrets_manager_guid   = module.sm_crn.service_instance
+  secrets_manager_region = module.sm_crn.region
+  cert_name              = "${var.prefix}-kmip-cert"
+  cert_common_name       = "${var.prefix}.${var.domain_name}"
+  cert_template          = "${var.prefix}-template"
 }
 
-data "ibm_sm_public_certificate" "kmip_cert" {
-  depends_on        = [module.secrets_manager_cert]
-  instance_id       = module.sm_crn.service_instance
-  region            = module.sm_crn.region
-  name              = "${var.prefix}-kmip-cert"
-  secret_group_name = "default"
+data "ibm_sm_private_certificate" "kmip_cert" {
+  instance_id = module.sm_crn.service_instance
+  region      = module.sm_crn.region
+  secret_id   = module.secrets_manager_cert.secret_id
 }
 
 ##############################################################################
@@ -65,7 +88,7 @@ module "kms_root_key" {
       name = "${var.prefix}-kmip-adapter"
       certificates = [
         {
-          certificate = split("\n\n", data.ibm_sm_public_certificate.kmip_cert.certificate)[0]
+          certificate = data.ibm_sm_private_certificate.kmip_cert.certificate
         }
       ]
     }

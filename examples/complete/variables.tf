@@ -29,18 +29,7 @@ variable "resource_tags" {
 variable "existing_secrets_manager_crn" {
   type        = string
   description = "CRN of an existing Secrets Manager instance"
-}
-
-variable "secrets_manager_dns_provider_name" {
-  type        = string
-  description = "The DNS provider name for the certificate used for KMIP certificate"
-  default     = "certificate-dns"
-}
-
-variable "secrets_manager_ca_name" {
-  type        = string
-  description = "The name of the CA to use in the Secrets Manager instance for certificate creation"
-  default     = "certificate-ca"
+  default     = null
 }
 
 variable "domain_name" {
