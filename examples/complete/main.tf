@@ -31,7 +31,6 @@ module "sm_crn" {
 }
 
 module "secrets_manager_private_cert_engine" {
-  count                     = var.existing_secrets_manager_crn == null ? 1 : 0
   source                    = "terraform-ibm-modules/secrets-manager-private-cert-engine/ibm"
   version                   = "1.3.4"
   secrets_manager_guid      = module.sm_crn.service_instance
