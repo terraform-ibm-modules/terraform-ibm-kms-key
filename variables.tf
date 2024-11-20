@@ -66,7 +66,7 @@ variable "kmip" {
       certificate = string
     })))
   }))
-  description = "value"
+  description = "Allows a key to utilize the key management interoperability protocol (KMIP), for more information see https://cloud.ibm.com/docs/key-protect?topic=key-protect-kmip"
   default     = []
 
   validation {
