@@ -51,6 +51,7 @@ func TestRunCompleteExample(t *testing.T) {
 
 	options.TerraformVars = map[string]interface{}{
 		"existing_secrets_manager_crn": permanentResources["secretsManagerCRN"],
+		"existing_cert_template_name":  permanentResources["privateCertTemplateName"],
 		"prefix":                       options.Prefix,
 		"region":                       options.Region,
 	}

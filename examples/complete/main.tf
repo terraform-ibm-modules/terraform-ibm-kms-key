@@ -31,6 +31,7 @@ module "sm_crn" {
 }
 
 module "secrets_manager_private_cert_engine" {
+  count                     = var.existing_cert_template_name == null ? 1 : 0
   source                    = "terraform-ibm-modules/secrets-manager-private-cert-engine/ibm"
   version                   = "1.3.4"
   secrets_manager_guid      = module.sm_crn.service_instance
@@ -52,7 +53,7 @@ module "secrets_manager_cert" {
   secrets_manager_region = module.sm_crn.region
   cert_name              = "${var.prefix}-kmip-cert"
   cert_common_name       = "${var.prefix}.${var.domain_name}"
-  cert_template          = "${var.prefix}-template"
+  cert_template          = var.existing_cert_template_name == null ? "${var.prefix}-template" : var.existing_cert_template_name
 }
 
 data "ibm_sm_private_certificate" "kmip_cert" {
