@@ -34,12 +34,6 @@ variable "existing_secrets_manager_crn" {
 
 variable "existing_cert_template_name" {
   type        = string
-  description = "Name of an existing Private Certificate template to use"
+  description = "Name of an existing Private Certificate template to use, required if providing a value for `existing_secrets_manager_crn`"
   default     = null
-}
-
-variable "domain_name" {
-  type        = string
-  description = "The name of the domain to use in the Secrets Manager instance for certificate creation"
-  default     = "goldeneye.dev.cloud.ibm.com"
 }

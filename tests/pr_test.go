@@ -53,7 +53,7 @@ func TestRunCompleteExample(t *testing.T) {
 		"existing_secrets_manager_crn": permanentResources["secretsManagerCRN"],
 		"existing_cert_template_name":  permanentResources["privateCertTemplateName"],
 		"prefix":                       options.Prefix,
-		"region":                       options.Region,
+		"region":                       permanentResources["secretsManagerRegion"],
 	}
 
 	output, err := options.RunTestConsistency()
