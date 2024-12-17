@@ -25,3 +25,15 @@ variable "resource_tags" {
   description = "Optional list of tags to be added to created resources"
   default     = []
 }
+
+variable "existing_secrets_manager_crn" {
+  type        = string
+  description = "CRN of an existing Secrets Manager instance"
+  default     = null
+}
+
+variable "existing_cert_template_name" {
+  type        = string
+  description = "Name of an existing Private Certificate template to use, required if providing a value for `existing_secrets_manager_crn`"
+  default     = null
+}
