@@ -53,7 +53,7 @@ locals {
   ])
 
   kmip_certs = {
-    for idx, obj in local.kmip_cert_list : "${obj.adapter_name}-${idx}" => obj
+    for idx, obj in local.kmip_cert_list : "${nonsensitive(obj.adapter_name)}-${idx}" => obj
   }
 
   kmip_adapter_id_output = {
