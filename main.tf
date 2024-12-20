@@ -40,7 +40,8 @@ locals {
 
   kmip_certs = flatten([
     [
-      for adapter in var.kmip : [
+      # check that adapter has certificates
+      for adapter in var.kmip : lookup(adapter, "certificates", null) == null ? [] : [
         for certificate in adapter.certificates : {
           adapter_name     = adapter.name
           certificate_name = try(certificate.name, null)
