@@ -40,8 +40,7 @@ locals {
 
   kmip_certs = flatten([
     [
-      # check that adapter has certificates
-      for adapter in var.kmip : lookup(adapter, "certificates", null) == null ? [] : [
+      for adapter in var.kmip : [
         for certificate in adapter.certificates : {
           adapter_name     = adapter.name
           certificate_name = try(certificate.name, null)
@@ -49,7 +48,7 @@ locals {
           # Check if filepath string is given, used in ibm_kms_kmip_client_cert call
           cert_is_file = length(regexall("^.+\\.pem$", certificate.certificate)) > 0
         }
-      ]
+      ] if lookup(adapter, "certificates", null) != null
     ]
   ])
 
