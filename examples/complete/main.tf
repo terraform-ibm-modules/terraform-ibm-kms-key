@@ -103,6 +103,12 @@ module "kms_root_key_2" {
   source          = "../.."
   kms_instance_id = ibm_resource_instance.key_protect_instance.guid
   key_name        = "${var.prefix}-root-key-2"
+
+  kmip = [
+    {
+      name = "${var.prefix}-kmip-adapter-2"
+    }
+  ]
 }
 
 ##############################################################################
