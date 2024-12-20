@@ -38,7 +38,7 @@ locals {
   # tflint-ignore: terraform_unused_declarations
   kmip_root_key_validation = (length(var.kmip) > 0 && var.standard_key) ? tobool("When providing a value for `kmip`, the key being created must be a root key.") : true
 
-  kmip_certs = flatten([
+  kmip_cert_list = flatten([
     [
       for adapter in var.kmip : [
         for certificate in adapter.certificates : {
@@ -51,6 +51,10 @@ locals {
       ] if lookup(adapter, "certificates", null) != null
     ]
   ])
+
+  kmip_certs = {
+    for idx, obj in local.kmip_cert_list : "${obj.adapter_name}-${idx}" => obj
+  }
 
   kmip_adapter_id_output = {
     for idx, _ in ibm_kms_kmip_adapter.kmip_adapter :
@@ -75,7 +79,7 @@ resource "ibm_kms_kmip_adapter" "kmip_adapter" {
 }
 
 resource "ibm_kms_kmip_client_cert" "kmip_cert" {
-  for_each      = { for idx, obj in local.kmip_certs : "${obj.adapter_name}-${idx}" => obj }
+  for_each      = local.kmip_certs
   endpoint_type = var.endpoint_type
   instance_id   = var.kms_instance_id
   adapter_id    = ibm_kms_kmip_adapter.kmip_adapter[each.value.adapter_name].adapter_id
