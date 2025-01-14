@@ -38,9 +38,13 @@ locals {
   # tflint-ignore: terraform_unused_declarations
   kmip_root_key_validation = (length(var.kmip) > 0 && var.standard_key) ? tobool("When providing a value for `kmip`, the key being created must be a root key.") : true
 
+  adapter_map = {
+    for adapter in nonsensitive(var.kmip) : adapter.name => adapter
+  }
+
   kmip_cert_list = flatten([
     [
-      for adapter in var.kmip : [
+      for adapter in nonsensitive(var.kmip) : [
         for certificate in adapter.certificates : {
           adapter_name     = adapter.name
           certificate_name = try(certificate.name, null)
@@ -52,8 +56,8 @@ locals {
     ]
   ])
 
-  kmip_certs = {
-    for idx, obj in local.kmip_cert_list : "${nonsensitive(obj.adapter_name)}-${idx}" => obj
+  kmip_cert_map = {
+    for idx, cert in nonsensitive(local.kmip_cert_list) : "${cert.adapter_name}-${idx}" => cert
   }
 
   kmip_adapter_id_output = {
@@ -67,7 +71,7 @@ locals {
 }
 
 resource "ibm_kms_kmip_adapter" "kmip_adapter" {
-  for_each    = { for adapter in var.kmip : adapter.name => adapter }
+  for_each    = local.adapter_map
   instance_id = var.kms_instance_id
   profile     = "native_1.0"
   profile_data = {
@@ -79,7 +83,7 @@ resource "ibm_kms_kmip_adapter" "kmip_adapter" {
 }
 
 resource "ibm_kms_kmip_client_cert" "kmip_cert" {
-  for_each      = local.kmip_certs
+  for_each      = local.kmip_cert_map
   endpoint_type = var.endpoint_type
   instance_id   = var.kms_instance_id
   adapter_id    = ibm_kms_kmip_adapter.kmip_adapter[each.value.adapter_name].adapter_id
