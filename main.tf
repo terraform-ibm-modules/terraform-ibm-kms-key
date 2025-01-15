@@ -38,10 +38,12 @@ locals {
   # tflint-ignore: terraform_unused_declarations
   kmip_root_key_validation = (length(var.kmip) > 0 && var.standard_key) ? tobool("When providing a value for `kmip`, the key being created must be a root key.") : true
 
+  # for-each for adapter resource
   adapter_map = {
     for adapter in nonsensitive(var.kmip) : adapter.name => adapter
   }
 
+  # add adapter name to certificate map
   kmip_cert_list = flatten([
     [
       for adapter in nonsensitive(var.kmip) : [
@@ -56,14 +58,18 @@ locals {
     ]
   ])
 
+  # for-each for cert resource
   kmip_cert_map = {
     for idx, cert in nonsensitive(local.kmip_cert_list) : "${cert.adapter_name}-${idx}" => cert
   }
 
+  # building adapter output
   kmip_adapter_id_output = {
     for idx, _ in ibm_kms_kmip_adapter.kmip_adapter :
     idx => ibm_kms_kmip_adapter.kmip_adapter[idx].adapter_id
   }
+
+  # building cert output
   kmip_cert_id_output = {
     for idx, _ in ibm_kms_kmip_client_cert.kmip_cert :
     idx => ibm_kms_kmip_client_cert.kmip_cert[idx].cert_id
