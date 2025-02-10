@@ -93,4 +93,9 @@ variable "kmip" {
     ])
     error_message = "Each adapter can contain up to 200 certificates, current length exceeds this limit."
   }
+
+  validation {
+    condition     = length(var.kmip) == 0 || !var.standard_key
+    error_message = "When providing a value for `kmip`, the key being created must be a root key."
+  }
 }
