@@ -4,7 +4,7 @@
 
 module "resource_group" {
   source  = "terraform-ibm-modules/resource-group/ibm"
-  version = "1.2.0"
+  version = "1.2.1"
   # if an existing resource group is not set (null) create a new one using prefix
   resource_group_name          = var.resource_group == null ? "${var.prefix}-resource-group" : null
   existing_resource_group_name = var.resource_group
@@ -17,7 +17,7 @@ module "resource_group" {
 module "secrets_manager" {
   count                = var.existing_secrets_manager_crn == null ? 1 : 0
   source               = "terraform-ibm-modules/secrets-manager/ibm"
-  version              = "2.5.0"
+  version              = "2.6.1"
   secrets_manager_name = "${var.prefix}-secrets-manager"
   sm_service_plan      = "trial"
   resource_group_id    = module.resource_group.resource_group_id
@@ -26,7 +26,7 @@ module "secrets_manager" {
 
 module "sm_crn" {
   source  = "terraform-ibm-modules/common-utilities/ibm//modules/crn-parser"
-  version = "1.1.0"
+  version = "1.2.0"
   crn     = var.existing_secrets_manager_crn == null ? module.secrets_manager[0].secrets_manager_crn : var.existing_secrets_manager_crn
 }
 
@@ -37,7 +37,7 @@ locals {
 module "secrets_manager_private_cert_engine" {
   count                     = var.existing_secrets_manager_crn == null && var.existing_cert_template_name == null ? 1 : 0
   source                    = "terraform-ibm-modules/secrets-manager-private-cert-engine/ibm"
-  version                   = "1.5.2"
+  version                   = "1.5.3"
   secrets_manager_guid      = module.sm_crn.service_instance
   region                    = var.region
   root_ca_name              = "${var.prefix}-ca"
