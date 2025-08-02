@@ -4,7 +4,7 @@
 
 module "resource_group" {
   source  = "terraform-ibm-modules/resource-group/ibm"
-  version = "1.2.1"
+  version = "1.3.0"
   # if an existing resource group is not set (null) create a new one using prefix
   resource_group_name          = var.resource_group == null ? "${var.prefix}-resource-group" : null
   existing_resource_group_name = var.resource_group
@@ -52,7 +52,7 @@ module "secrets_manager_cert" {
   # no outputs from the private cert engine to reference in this module call
   depends_on             = [module.secrets_manager_private_cert_engine]
   source                 = "terraform-ibm-modules/secrets-manager-private-cert/ibm"
-  version                = "1.4.1"
+  version                = "1.4.2"
   secrets_manager_guid   = module.sm_crn.service_instance
   secrets_manager_region = module.sm_crn.region
   cert_name              = "${var.prefix}-kmip-cert"
