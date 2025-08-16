@@ -37,7 +37,7 @@ locals {
 module "secrets_manager_private_cert_engine" {
   count                     = var.existing_secrets_manager_crn == null && var.existing_cert_template_name == null ? 1 : 0
   source                    = "terraform-ibm-modules/secrets-manager-private-cert-engine/ibm"
-  version                   = "1.6.6"
+  version                   = "1.6.7"
   secrets_manager_guid      = module.sm_crn.service_instance
   region                    = var.region
   root_ca_name              = "${var.prefix}-ca"
