@@ -30,7 +30,7 @@ variable "endpoint_type" {
   default     = "public"
 
   validation {
-    condition     = can(regex("public|private", var.endpoint_type))
+    condition     = can(regex("^(public|private)$", var.endpoint_type))
     error_message = "Variable 'endpoint_type' must be 'public' or 'private'."
   }
 }
