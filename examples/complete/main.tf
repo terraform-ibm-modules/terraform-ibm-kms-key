@@ -17,7 +17,7 @@ module "resource_group" {
 module "secrets_manager" {
   count                = var.existing_secrets_manager_crn == null ? 1 : 0
   source               = "terraform-ibm-modules/secrets-manager/ibm"
-  version              = "2.8.6"
+  version              = "2.8.7"
   secrets_manager_name = "${var.prefix}-secrets-manager"
   sm_service_plan      = "trial"
   resource_group_id    = module.resource_group.resource_group_id
@@ -37,7 +37,7 @@ locals {
 module "secrets_manager_private_cert_engine" {
   count                     = var.existing_secrets_manager_crn == null && var.existing_cert_template_name == null ? 1 : 0
   source                    = "terraform-ibm-modules/secrets-manager-private-cert-engine/ibm"
-  version                   = "1.6.10"
+  version                   = "1.6.11"
   secrets_manager_guid      = module.sm_crn.service_instance
   region                    = var.region
   root_ca_name              = "${var.prefix}-ca"
@@ -52,7 +52,7 @@ module "secrets_manager_cert" {
   # no outputs from the private cert engine to reference in this module call
   depends_on             = [module.secrets_manager_private_cert_engine]
   source                 = "terraform-ibm-modules/secrets-manager-private-cert/ibm"
-  version                = "1.4.6"
+  version                = "1.4.7"
   secrets_manager_guid   = module.sm_crn.service_instance
   secrets_manager_region = module.sm_crn.region
   cert_name              = "${var.prefix}-kmip-cert"
