@@ -4,7 +4,7 @@
 
 module "resource_group" {
   source  = "terraform-ibm-modules/resource-group/ibm"
-  version = "1.4.0"
+  version = "1.4.1"
   # if an existing resource group is not set (null) create a new one using prefix
   resource_group_name          = var.resource_group == null ? "${var.prefix}-resource-group" : null
   existing_resource_group_name = var.resource_group
@@ -26,7 +26,7 @@ module "secrets_manager" {
 
 module "sm_crn" {
   source  = "terraform-ibm-modules/common-utilities/ibm//modules/crn-parser"
-  version = "1.3.0"
+  version = "1.3.1"
   crn     = var.existing_secrets_manager_crn == null ? module.secrets_manager[0].secrets_manager_crn : var.existing_secrets_manager_crn
 }
 
