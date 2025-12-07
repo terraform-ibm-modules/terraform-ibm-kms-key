@@ -26,7 +26,7 @@ module "secrets_manager" {
 
 module "sm_crn" {
   source  = "terraform-ibm-modules/common-utilities/ibm//modules/crn-parser"
-  version = "1.3.2"
+  version = "1.3.3"
   crn     = var.existing_secrets_manager_crn == null ? module.secrets_manager[0].secrets_manager_crn : var.existing_secrets_manager_crn
 }
 
