@@ -17,7 +17,7 @@ module "resource_group" {
 module "secrets_manager" {
   count                = var.existing_secrets_manager_crn == null ? 1 : 0
   source               = "terraform-ibm-modules/secrets-manager/ibm"
-  version              = "2.12.5"
+  version              = "2.12.6"
   secrets_manager_name = "${var.prefix}-secrets-manager"
   sm_service_plan      = "trial"
   resource_group_id    = module.resource_group.resource_group_id
