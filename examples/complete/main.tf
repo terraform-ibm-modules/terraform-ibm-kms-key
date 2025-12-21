@@ -52,7 +52,7 @@ module "secrets_manager_cert" {
   # no outputs from the private cert engine to reference in this module call
   depends_on             = [module.secrets_manager_private_cert_engine]
   source                 = "terraform-ibm-modules/secrets-manager-private-cert/ibm"
-  version                = "1.10.5"
+  version                = "1.10.6"
   secrets_manager_guid   = module.sm_crn.service_instance
   secrets_manager_region = module.sm_crn.region
   cert_name              = "${var.prefix}-kmip-cert"
