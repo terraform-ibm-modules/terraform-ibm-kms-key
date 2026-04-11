@@ -17,7 +17,7 @@ module "resource_group" {
 module "secrets_manager" {
   count                = var.existing_secrets_manager_crn == null ? 1 : 0
   source               = "terraform-ibm-modules/secrets-manager/ibm"
-  version              = "2.13.9"
+  version              = "2.14.0"
   secrets_manager_name = "${var.prefix}-secrets-manager"
   sm_service_plan      = "trial"
   resource_group_id    = module.resource_group.resource_group_id
@@ -26,7 +26,7 @@ module "secrets_manager" {
 
 module "sm_crn" {
   source  = "terraform-ibm-modules/common-utilities/ibm//modules/crn-parser"
-  version = "1.4.3"
+  version = "1.5.0"
   crn     = var.existing_secrets_manager_crn == null ? module.secrets_manager[0].secrets_manager_crn : var.existing_secrets_manager_crn
 }
 
