@@ -4,7 +4,7 @@
 
 variable "kms_instance_id" {
   type        = string
-  description = "ID or GUID of KMS Instance"
+  description = "ID or GUID of Key Protect Instance"
 }
 
 variable "key_name" {
