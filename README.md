@@ -7,7 +7,7 @@
 [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
 [![Terraform Registry](https://img.shields.io/badge/terraform-registry-623CE4?logo=terraform)](https://registry.terraform.io/modules/terraform-ibm-modules/kms-key/ibm/latest)
 
-This module supports creating a standard or root key in an existing key ring and KMS instance. KMS can be Key Protect Standard plan instance. You can specify rotation and deletion policies for the keys.
+This module supports creating a standard or root key in an existing key ring within a Key Protect instance. You can configure rotation and deletion policies for the keys.
 
 <!-- Below content is automatically populated via pre-commit hook -->
 <!-- BEGIN OVERVIEW HOOK -->
