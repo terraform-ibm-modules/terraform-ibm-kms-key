@@ -35,16 +35,16 @@ locals {
 }
 
 module "secrets_manager_private_cert_engine" {
-  count                     = var.existing_secrets_manager_crn == null && var.existing_cert_template_name == null ? 1 : 0
-  source                    = "terraform-ibm-modules/secrets-manager-private-cert-engine/ibm"
-  version                   = "2.0.8"
-  secrets_manager_guid      = module.sm_crn.service_instance
-  region                    = var.region
-  root_ca_name              = "${var.prefix}-ca"
-  root_ca_common_name       = "*.cloud.ibm.com"
-  intermediate_ca_name      = "${var.prefix}-int-ca"
-  certificate_template_name = local.certificate_template_name
-  root_ca_max_ttl           = "8760h"
+  count                 = var.existing_secrets_manager_crn == null && var.existing_cert_template_name == null ? 1 : 0
+  source                = "terraform-ibm-modules/secrets-manager-private-cert-engine/ibm"
+  version               = "2.0.8"
+  secrets_manager_guid  = module.sm_crn.service_instance
+  region                = var.region
+  root_ca_name          = "${var.prefix}-ca"
+  root_ca_common_name   = "*.cloud.ibm.com"
+  intermediate_ca_name  = "${var.prefix}-int-ca"
+  root_ca_max_ttl       = "8760h"
+  certificate_templates = [{ name = local.certificate_template_name }]
 }
 
 module "secrets_manager_cert" {
