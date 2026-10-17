@@ -72,7 +72,7 @@ func TestRunBasicExample(t *testing.T) {
 
 	terraformVars := map[string]interface{}{
 		"prefix":                     options.Prefix,
-		"existing_kms_instance_guid": permanentResources["hpcs_south"],
+		"existing_kms_instance_guid": permanentResources["hpcs_eufr2"],
 	}
 
 	options.TerraformVars = terraformVars
