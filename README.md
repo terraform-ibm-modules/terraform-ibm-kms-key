@@ -7,7 +7,7 @@
 [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
 [![Terraform Registry](https://img.shields.io/badge/terraform-registry-623CE4?logo=terraform)](https://registry.terraform.io/modules/terraform-ibm-modules/kms-key/ibm/latest)
 
-This module supports creating a standard or root key in an existing key ring and KMS instance. KMS can be Key Protect or Hyper Protect Crypto Services (HPCS) Standard plan instance. You can specify rotation and deletion policies for the keys.
+This module supports creating a standard or root key in an existing key ring within a Key Protect instance. You can configure rotation and deletion policies for the keys.
 
 <!-- Below content is automatically populated via pre-commit hook -->
 <!-- BEGIN OVERVIEW HOOK -->
@@ -102,7 +102,7 @@ No modules.
 | <a name="input_force_delete"></a> [force\_delete](#input\_force\_delete) | Set as true to enable forcing deletion even if key is in use | `bool` | `false` | no |
 | <a name="input_key_name"></a> [key\_name](#input\_key\_name) | Name to give the key | `string` | n/a | yes |
 | <a name="input_kmip"></a> [kmip](#input\_kmip) | Allows a key to utilize the key management interoperability protocol (KMIP), for more information see https://cloud.ibm.com/docs/key-protect?topic=key-protect-kmip | <pre>list(object({<br/>    name        = string<br/>    description = optional(string)<br/>    certificates = optional(list(object({<br/>      name        = optional(string)<br/>      certificate = string<br/>    })))<br/>  }))</pre> | `[]` | no |
-| <a name="input_kms_instance_id"></a> [kms\_instance\_id](#input\_kms\_instance\_id) | ID or GUID of KMS Instance | `string` | n/a | yes |
+| <a name="input_kms_instance_id"></a> [kms\_instance\_id](#input\_kms\_instance\_id) | ID or GUID of Key Protect Instance | `string` | n/a | yes |
 | <a name="input_kms_key_ring_id"></a> [kms\_key\_ring\_id](#input\_kms\_key\_ring\_id) | The ID of the key ring where you want to add your KMS key | `string` | `"default"` | no |
 | <a name="input_rotation_interval_month"></a> [rotation\_interval\_month](#input\_rotation\_interval\_month) | The key rotation time interval in months. Rotation policy cannot be set for standard key, so value is ignored if var.standard\_key is true | `number` | `1` | no |
 | <a name="input_standard_key"></a> [standard\_key](#input\_standard\_key) | Set as true for Standard Key, false for Root Key | `bool` | `false` | no |

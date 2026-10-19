@@ -67,12 +67,12 @@ func TestRunBasicExample(t *testing.T) {
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
 		Testing:      t,
 		TerraformDir: basicExampleTerraformDir,
-		Prefix:       "kms-key-basic",
+		Prefix:       "kp-key-basic",
 	})
 
 	terraformVars := map[string]interface{}{
 		"prefix":                     options.Prefix,
-		"existing_kms_instance_guid": permanentResources["hpcs_south"],
+		"existing_kms_instance_guid": permanentResources["kp_dedicated_us_south_instance_id"],
 	}
 
 	options.TerraformVars = terraformVars
